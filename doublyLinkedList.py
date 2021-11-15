@@ -24,10 +24,14 @@ class linkedList:
         temp = self.head
         while(temp):
             if(temp.data == self.data):
-                temp.next.prev = self.newdata
-                self.newdata.prev = temp
-                self.newdata.next = temp.next
-                temp.next = self.newdata
+                if(temp.next is not None):
+                    temp.next.prev = self.newdata
+                    self.newdata.prev = temp
+                    self.newdata.next = temp.next
+                    temp.next = self.newdata
+                else:
+                    temp.next = self.newdata
+                    self.newdata.prev = temp
             temp = temp.next
     def append(self, newdata):
         self.newdata = node(newdata)
@@ -64,7 +68,10 @@ class linkedList:
         a = []
         string = " "
         while (temp):
-            a.append((str(temp.data) + "-->"))
+            if(temp.next is not None):
+                a.append((str(temp.data) + "-->"))
+            else:
+                a.append((str(temp.data)))
             temp = temp.next
         print(string.join(a))
 
