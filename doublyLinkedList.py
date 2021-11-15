@@ -65,40 +65,42 @@ class linkedList:
 
     def printList(self):
         temp = self.head
-        a = []
+        dll = []
         string = " "
         while (temp):
             if(temp.next is not None):
-                a.append((str(temp.data) + "-->"))
+                dll.append((str(temp.data) + "-->"))
             else:
-                a.append((str(temp.data)))
+                dll.append((str(temp.data)))
             temp = temp.next
-        print(string.join(a))
+        print(string.join(dll))
 
-myList = linkedList()
+myqueue = linkedList()
 ans = 'Y'
 while(ans == 'Y' or ans == 'yes' or ans == 'Yes' or ans == 'y'):
     choice = input("Select choice \n 1. add Before List \n 2. add after specific node \n 3. append \n 4. delete head \n 5. delete node \n 6. print list \n")
     if(choice == '1'):
         data = input("Enter the data you need to add \n")
-        myList.addBeforeList(data)
-        myList.printList()
+        myqueue.addBeforeList(data)
+        myqueue.printList()
     elif(choice == '2'):
         data = input("Enter previous data \n")
         newdata = input(" new data to be added after it \n")
-        myList.addAfter(data, newdata)
-        myList.printList()
+        myqueue.addAfter(data, newdata)
+        myqueue.printList()
     elif(choice == '3'):
         data = input("Enter data you need to append\n")
-        myList.append(data)
-        myList.printList()
+        myqueue.append(data)
+        myqueue.printList()
     elif (choice == '4'):
-        myList.delHead()
-        myList.printList()
+        myqueue.delHead()
+        myqueue.printList()
     elif (choice == '5'):
         data = input("Enter the data you want to delete\n")
-        myList.deleteNode(data)
-        myList.printList()
+        myqueue.deleteNode(data)
+        myqueue.printList()
     elif (choice == '6'):
-        myList.printList()
+        myqueue.printList()
+    else:
+        print("Enter valid option and try again")
     ans = input("Do you need to perform operation again?(yes or no)")
