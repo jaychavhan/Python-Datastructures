@@ -8,12 +8,14 @@ class node:
 class linkedList:
     def __init__(self):
         self.head = None
+        self.tail = None
 
     def addBeforeList(self, newdata):
         self.newdata = node(newdata)
 
         if(self.head == None):
             self.head = self.newdata
+            self.tail = self.newdata
         else:
             self.head.prev = self.newdata
             self.newdata.next = self.head
@@ -32,21 +34,26 @@ class linkedList:
                 else:
                     temp.next = self.newdata
                     self.newdata.prev = temp
+                    self.tail = self.newdata
             temp = temp.next
     def append(self, newdata):
         self.newdata = node(newdata)
         if(self.head == None):
-            self.head =self.newdata
-        last = self.head
-        while(last.next):
-            last = last.next
-        last.next = self.newdata
-        self.newdata.prev = last
+            self.head = self.newdata
+            self.tail = self.newdata
+        else:
+            self.tail.next = self.newdata
+            self.newdata.prev = self.tail
+            self.tail = self.newdata
 
     def delHead(self):
         temp = self.head
-        self.head = temp.next
-        self.head.prev = None
+        if(self.head != self.tail):
+            self.head = temp.next
+            self.head.prev = None
+        else:
+            self.head = None
+            self.tail = None
     def deleteNode(self, data):
         self.data = data
         temp = self.head
@@ -59,14 +66,26 @@ class linkedList:
                     temp.next.prev = temp.prev
                     temp.prev.next = temp.next
                 else:
-                    temp.prev.next = None
+                    self.tail = temp.prev
+                    self.tail.next = None
 
             temp = temp.next
+    def delTail(self):
+        temp = self.tail
+        if(self.head != self.tail):
+            self.tail = temp.prev
+            self.tail.next = None
+        else:
+            self.head = None
+            self.tail = None
 
     def printList(self):
         temp = self.head
         dll = []
         string = " "
+        if(self.head == None):
+            print("\n No element in Linked-list. Please try adding elements first")
+            return
         while (temp):
             if(temp.next is not None):
                 dll.append((str(temp.data) + "-->"))
@@ -78,7 +97,8 @@ class linkedList:
 myqueue = linkedList()
 ans = 'Y'
 while(ans == 'Y' or ans == 'yes' or ans == 'Yes' or ans == 'y'):
-    choice = input("Select choice \n 1. add Before List \n 2. add after specific node \n 3. append \n 4. delete head \n 5. delete node \n 6. print list \n")
+    choice = input("Select choice \n 1. add Before List \n 2. add after specific node \n 3. append \n 4. delete head \n 5. "
+                   "delete node \n 6. Delete Tail \n 7. Print Linked-list \n")
     if(choice == '1'):
         data = input("Enter the data you need to add \n")
         myqueue.addBeforeList(data)
@@ -100,6 +120,9 @@ while(ans == 'Y' or ans == 'yes' or ans == 'Yes' or ans == 'y'):
         myqueue.deleteNode(data)
         myqueue.printList()
     elif (choice == '6'):
+        myqueue.delTail()
+        myqueue.printList()
+    elif (choice == '7'):
         myqueue.printList()
     else:
         print("Enter valid option and try again")
